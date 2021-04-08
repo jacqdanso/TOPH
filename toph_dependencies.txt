@@ -1,0 +1,4 @@
+python==3.6.8
+photutils==0.5
+pypher==0.6.4
+pidly==0.2.6
