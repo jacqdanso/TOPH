@@ -20,4 +20,4 @@ To get this repo running:
 * Update `toph_params.py` with the appropriate paramater information.
 * In `TOPH/toph_scripts/` type `python run_toph.py`.
 
-You should see output on the command line. Scripts for diagnostic plots coming soon!
+You should see output on the command line. Documentation coming soon!
