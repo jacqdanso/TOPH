@@ -5,13 +5,14 @@ import sys
 
 params = {}
 
+filepath = '/tests/input/'
 def toph_params():
-	params['IMG_FILEPATH'] = '/input/COSMOS_352_Kb_0.80pp_sci.fits'
-	params['IMG_PSFGRID'] = '/input/COSMOS_352_Kb_psfgrid_v0.8.fits'
-	params['STARS_FILEPATH'] = '/input/COSMOS_352_Kb_0.80pp_stars_green2.txt'
-	params['REFERENCE_FILEPATH'] = '/input/COSMOS_352_Ks_cutout.fits'
-	params['REFERENCE_PSFGRID'] = '/input/COSMOS_352_Ks_psfgrid_v0.8.fits'
-	params['SAV_FILE'] = '/input/COSMOS_352_Kb_0.80pp_sci.sav'
+	params['IMG_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_sci.fits'
+	params['IMG_PSFGRID'] = filepath+'COSMOS_352_Kb_psfgrid_v0.8.fits'
+	params['STARS_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_stars_green2.txt'
+	params['REFERENCE_FILEPATH'] = filepath+'COSMOS_352_Ks_cutout.fits'
+	params['REFERENCE_PSFGRID'] = filepath+'COSMOS_352_Ks_psfgrid_v0.8.fits'
+	params['SAV_FILE'] = filepath+'COSMOS_352_Kb_0.80pp_sci.sav'
 	params['PIXEL_SCALE'] = 0.15
 	params['CHECK_OFFSET_BEFORE'] = False 
 	params['CHECK_OFFSET_AFTER'] = False 
