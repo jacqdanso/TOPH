@@ -6,12 +6,12 @@ import sys
 params = {}
 
 def toph_params():
-	params['IMG_FILEPATH'] = '/Users/jadanso/Desktop/DRP_temp/COSMOS_55/COSMOS_55_Kb_4_mp_avg_bgsub.fits'
-	params['IMG_PSFGRID'] = '/Users/jadanso/Desktop/jacq/input/COSMOS_55_Kb_4_mp_avg_bgsub_psfgrid.fits'
-	params['STARS_FILEPATH'] = '/Users/jadanso/Desktop/jacq/input/COSMOS_55_Ks_cutout_stars.cat'
-	params['REFERENCE_FILEPATH'] = '/Users/jadanso/Desktop/DRP_temp/COSMOS_55/COSMOS_55_Ks_cutout_psfmatched.fits'
-	params['REFERENCE_PSFGRID'] = '/Users/jadanso/Desktop/jacq/input/COSMOS_55_Ks_cutout_psfmatched_psfgrid.fits'
-	params['SAV_FILE'] = '/Users/jadanso/Desktop/jacq/input/COSMOS_55_Kb_4_mp_avg_bgsub.sav'
+	params['IMG_FILEPATH'] = '/input/COSMOS_352_Kb_0.80pp_sci.fits'
+	params['IMG_PSFGRID'] = '/input/COSMOS_352_Kb_psfgrid_v0.8.fits'
+	params['STARS_FILEPATH'] = '/input/COSMOS_352_Kb_0.80pp_stars_green2.txt'
+	params['REFERENCE_FILEPATH'] = '/input/COSMOS_352_Ks_cutout.fits'
+	params['REFERENCE_PSFGRID'] = '/input/COSMOS_352_Ks_psfgrid_v0.8.fits'
+	params['SAV_FILE'] = '/input/COSMOS_352_Kb_0.80pp_sci.sav'
 	params['PIXEL_SCALE'] = 0.15
 	params['CHECK_OFFSET_BEFORE'] = False 
 	params['CHECK_OFFSET_AFTER'] = False 
