@@ -13,7 +13,7 @@ To get this repo running:
 * Create a [virtual environment](https://docs.python.org/3/library/venv.html).
 * Clone this repo with `git clone https://github.com/jacqdanso/TOPH.git`
 * Get into the folder with `cd TOPH`
-* Install the requirements with `pip install -r toph_dependencies.txt`
+* Install the requirements with `pip install -r requirements.txt`
 
 # Usage
 
