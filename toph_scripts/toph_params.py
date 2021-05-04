@@ -5,7 +5,7 @@ import sys
 
 params = {}
 
-filepath = '/tests/input/'
+filepath = 'tests/input/'
 def toph_params():
 	params['IMG_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_sci.fits'
 	params['IMG_PSFGRID'] = filepath+'COSMOS_352_Kb_psfgrid_v0.8.fits'
