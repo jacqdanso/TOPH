@@ -1,8 +1,9 @@
 import numpy as np 
-from include_buffer import include_buffer
+from toph_scripts.include_buffer import include_buffer
 from scipy.signal import convolve2d
 from astropy.io import fits
 import matplotlib.pyplot as plt 
+from astropy.convolution import convolve_fft
 
 plt.style.use('seaborn-poster')
 kwargs = {'vmin' : -1e-3, 'vmax' : 1e-3, 'cmap' : 'Greys_r', 'origin' : 'lower'}
@@ -21,7 +22,8 @@ def get_grid(xpoints, ypoints):
 
 	return grid
 
-def convolve_image(img, img_filepath, buffer_size, kernels, xpoints, ypoints):
+def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypoints, \
+	conv_type):
 	grid = get_grid(xpoints, ypoints)
 
 	x = np.linspace(0, max(xpoints), num = (grid[1]*2)-1, dtype = int)
@@ -60,7 +62,7 @@ def convolve_image(img, img_filepath, buffer_size, kernels, xpoints, ypoints):
 
 	print('Creating kernel grid')
 	# reshape and flip slice array
-	slices = np.array(slices).reshape((grid[1]*2)-2, (grid[0]*2)-2)
+	slices = np.array(slices, dtype = object).reshape((grid[1]*2)-2, (grid[0]*2)-2)
 	slices = np.flip(slices.T, axis = 0).flatten()
 
 	# do the same thing for the buffers
@@ -105,7 +107,11 @@ def convolve_image(img, img_filepath, buffer_size, kernels, xpoints, ypoints):
 	print('Convolving image slices with kernel grid')
 	convol_grid = []
 	for chunk, kernel, num in zip(slices, ker_grid, np.arange(len(slices))+1):
-		convol_grid.append(convolve2d(chunk, kernel, boundary='fill', mode='same'))
+		if conv_type == 'convolve2d':
+			convol_grid.append(convolve2d(chunk, kernel, boundary='fill', mode='same'))
+		elif conv_type == 'fft':
+			convol_grid.append(convolve_fft(chunk, kernel, boundary='fill', \
+				preserve_nan = True))
 		print('Convolving slice #'+str(num))
 
 
@@ -122,7 +128,7 @@ def convolve_image(img, img_filepath, buffer_size, kernels, xpoints, ypoints):
 		new_slices.append(chunk[newy1:newy2, newx1:newx2])
 
 	# flip and transpose slice array
-	new_slices = np.array(new_slices)[new_slice_index]
+	new_slices = np.array(new_slices, dtype = object)[new_slice_index]
 
 	### plus 1 because np.arange does not include stop value
 	row_indices = np.arange(0, (np.shape(dup_arr)[0]*np.shape(dup_arr)[1])+1, step = np.shape(dup_arr)[0]) 
@@ -139,9 +145,10 @@ def convolve_image(img, img_filepath, buffer_size, kernels, xpoints, ypoints):
 	convol_img = np.concatenate(img_rows, axis=1)
 
 	# save convolved image
-	hdu = fits.PrimaryHDU(convol_img)
-	hdu.header = fits.open(img_filepath)[0].header
-	hdu.writeto(img_filepath.split('/')[-1].split('.fits')[0]+'_psfmatched.fits')
+	if params['SAVE_IMAGE'] == True:
+		hdu = fits.PrimaryHDU(convol_img)
+		hdu.header = fits.open(img_filepath)[0].header
+		hdu.writeto(img_filepath.split('/')[-1].split('.fits')[0]+'_psfmatched.fits')
 
 	if params['SHOW_CONVOLVED_IMAGE'] == True:
 		plt.figure(figsize = (10,10))

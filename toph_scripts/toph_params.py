@@ -25,6 +25,8 @@ def toph_params():
 	params['APERTURE_SIZE'] = 28*params['PIXEL_SCALE']
 	params['INNER_ANNULUS'] = 32*params['PIXEL_SCALE']
 	params['OUTER_ANNULUS'] = 51*params['PIXEL_SCALE']
+	params['SAVE_IMAGE'] = True
+	params['CONVOLUTION_TYPE'] = 'convolve2d'
 
 	# Checks 
 	img_psfs = fits.open(params['IMG_PSFGRID'])[0].data
