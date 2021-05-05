@@ -6,7 +6,7 @@ from toph_scripts.create_kernels import create_kernels
 from toph_scripts.convolve_image import convolve_image, get_grid
 from scipy.io import readsav
 
-def test_params():
+def test_params(test_ker):
 	params = toph_params()
 	regfact = params['REGFACT']
 	psf_points = readsav(params['SAV_FILE'])
@@ -36,7 +36,8 @@ def test_kernels():
 	return buffer_size, kernels
 
 def test_slicing():
-	params, img, img_filepath, xpoints, ypoints = test_params()
+	test_ker = False
+	params, img, img_filepath, xpoints, ypoints = test_params(test_ker)
 	buffer_size, kernels = test_kernels()
 
 	conv_type = params['CONVOLUTION_TYPE']
@@ -87,7 +88,8 @@ def test_reordering():
 	return buff_index, new_slice_index 
 
 def test_kernel_grid():
-	params, img, img_filepath, xpoints, ypoints = test_params()
+	test_ker = False
+	params, img, img_filepath, xpoints, ypoints = test_params(test_ker)
 	buffer_size, kernels = test_kernels()
 	slice_num, grid, slices, buffers = test_slicing()
 	buff_index, new_slice_index = test_reordering()
