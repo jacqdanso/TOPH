@@ -23,7 +23,7 @@ def get_grid(xpoints, ypoints):
 	return grid
 
 def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypoints, \
-	conv_type):
+	conv_type, file_basename):
 	grid = get_grid(xpoints, ypoints)
 
 	x = np.linspace(0, max(xpoints), num = (grid[1]*2)-1, dtype = int)
@@ -148,12 +148,6 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 	if params['SAVE_IMAGE'] == True:
 		hdu = fits.PrimaryHDU(convol_img)
 		hdu.header = fits.open(img_filepath)[0].header
-		hdu.writeto(img_filepath.split('/')[-1].split('.fits')[0]+'_psfmatched.fits')
-
-	if params['SHOW_CONVOLVED_IMAGE'] == True:
-		plt.figure(figsize = (10,10))
-		plt.imshow(convol_img, **kwargs)
-		plt.xlabel('x (pixels)', fontsize = 30)
-		plt.ylabel('y (pixels)', fontsize = 30)
+		hdu.writeto(file_basename+'_psfmatched.fits')
 
 	return convol_img
