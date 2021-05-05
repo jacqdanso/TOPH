@@ -7,7 +7,7 @@ from toph_scripts.convolve_image import convolve_image, get_grid
 from scipy.io import readsav
 from toph_scripts.include_buffer import include_buffer
 
-def test_params(test_ker):
+def test_params(test_ker=False):
 	params = toph_params()
 	regfact = params['REGFACT']
 	psf_points = readsav(params['SAV_FILE'])
