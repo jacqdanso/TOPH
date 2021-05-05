@@ -5,6 +5,7 @@ from toph_scripts.toph_params import toph_params
 from toph_scripts.create_kernels import create_kernels
 from toph_scripts.convolve_image import convolve_image, get_grid
 from scipy.io import readsav
+from toph_scripts.include_buffer import include_buffer
 
 def test_params(test_ker):
 	params = toph_params()
@@ -188,7 +189,7 @@ def test_stitching():
 	#put columns together 
 	convol_img = np.concatenate(img_rows, axis=1)
 
-	return convol_img
+	#return convol_img
 
-convol_img = test_stitching()
+#convol_img = test_stitching()
 	
