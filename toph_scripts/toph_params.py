@@ -33,7 +33,7 @@ def toph_params():
 	params['APERTURE_SIZE'] = 28*params['PIXEL_SCALE']
 	params['INNER_ANNULUS'] = 32*params['PIXEL_SCALE']
 	params['OUTER_ANNULUS'] = 51*params['PIXEL_SCALE']
-	params['CATALOG_APERTURE'] = 
+	#params['CATALOG_APERTURE'] = 0.6 #in arcseconds
 	params['SAVE_IMAGE'] = True
 	params['CONVOLUTION_TYPE'] = 'convolve2d'
 
