@@ -1,7 +1,7 @@
 import numpy as np 
 import matplotlib.pyplot as plt
 from astropy.modeling import models, fitting
-from photometry import median_fit
+from median_fit import median_fit
 from astropy.io import fits
 from photutils import detect_threshold, detect_sources
 from astropy.convolution import Gaussian2DKernel
@@ -27,7 +27,7 @@ def photometry_area(img, rout):
 	return phot_area 
 
 def detect_objects(image):
-    threshold = detect_threshold(image, snr=3)
+    threshold = detect_threshold(image, nsigma=3)
     sigma = 3.0 / (2.0 * np.sqrt(2.0 * np.log(2.0)))   # FWHM = 3
     kernel = Gaussian2DKernel(sigma, x_size=3, y_size=3)
     kernel.normalize()
@@ -36,7 +36,7 @@ def detect_objects(image):
     
     return segm
 
-def bgsub(img, idx, rin, rout, display = display):
+def bgsub(img, idx, rin, rout, display = False):
     center = int(np.shape(img)[0]/2)
     imin = center - rout
     imax = center + rout 
@@ -67,7 +67,7 @@ def bgsub(img, idx, rin, rout, display = display):
     skyvals = skyvals[~np.isnan(skyvals)] # remove NaNs (for stars on the edge]
     
     # sigma clipping
-    mode, min_num, max_num = median_fit.median_fit(skyvals, idx)
+    mode, min_num, max_num = median_fit(skyvals, idx)
 
     sky = mode
     

@@ -3,7 +3,7 @@ import numpy as np
 from astropy.io import fits 
 from toph_scripts.toph_params import toph_params
 from toph_scripts.create_kernels import create_kernels
-from toph_scripts.convolve_image import convolve_image, get_grid
+from toph_scripts.convolve_image import get_grid
 from scipy.io import readsav
 from toph_scripts.include_buffer import include_buffer
 from astropy.convolution import convolve_fft
@@ -33,14 +33,16 @@ def test_params(test_ker=False):
 def test_kernels():
 	test_ker = True
 	img_psfs, ref_psfs, regfact = test_params(test_ker)
-	kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, regfact=regfact)
-	buffer_size = np.shape(kernels[0])[0]
+	kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, regfact=regfact)
+	buffer_size = np.shape(shifted_kernels[0])[0]
 
-	return buffer_size, kernels
+	return buffer_size, shifted_kernels
 
 def test_slicing():
 	test_ker = False
 	params, img, img_filepath, xpoints, ypoints = test_params(test_ker)
+
+	# note kernels is being overwritten here
 	buffer_size, kernels = test_kernels()
 
 	conv_type = params['CONVOLUTION_TYPE']

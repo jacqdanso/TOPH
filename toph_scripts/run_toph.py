@@ -23,24 +23,25 @@ star_cat = read(params['STARS_FILEPATH'])
 
 # run TOPH -- main routines
 
-kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, regfact=params['REGFACT'])
+kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, regfact=params['REGFACT'])
 buffer_size = np.shape(kernels[0])[0]
 
 convol_img = convolve_image(params, img, params['IMG_FILEPATH'], buffer_size, kernels, xpoints, ypoints, \
-	params['CONVOLUTION_TYPE'], file_basename)
+	params['CONVOLUTION_TYPE'], file_basename, params['OUTDIR'])
 
 # make diagnostic plots 
 
 if params['CHECK_KERNELS']: 
 	check_kernels(kernels=kernels, img_psfs=img_psfs, ref_psfs=ref_psfs, \
-		file_basename = file_basename)
+		file_basename = file_basename, outdir = params['OUTDIR'])
 
 if params['CHECK_CONVOLVED_PSFS']:
-	check_convolved_psfs(ref_psfs = ref_psfs, stars=star_cat, pixscale = params['PIXEL_SCALE'])
+	check_convolved_psfs(kernels = kernels, img_psfs = img_psfs, ref_psfs = ref_psfs, stars=star_cat, \
+		pixscale = params['PIXEL_SCALE'], file_basename = file_basename, outdir = params['OUTDIR'])
 
 if params['SHOW_CONVOLVED_IMAGE']:
-	convol_img = fits.open(file_basename+'_psfmatched.fits')[0].data
-	check_convolved_image(convol_img)
+	convol_img = fits.open(params['OUTDIR']+file_basename+'_psfmatched.fits')[0].data
+	check_convolved_image(convol_img=convol_img, file_basename = file_basename, outdir = params['OUTDIR'])
 
 
 

@@ -1,5 +1,5 @@
 import numpy as np 
-from toph_scripts.include_buffer import include_buffer
+from include_buffer import include_buffer
 from scipy.signal import convolve2d
 from astropy.io import fits
 import matplotlib.pyplot as plt 
@@ -23,7 +23,7 @@ def get_grid(xpoints, ypoints):
 	return grid
 
 def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypoints, \
-	conv_type, file_basename):
+	conv_type, file_basename, outdir):
 	grid = get_grid(xpoints, ypoints)
 
 	x = np.linspace(0, max(xpoints), num = (grid[1]*2)-1, dtype = int)
@@ -33,7 +33,7 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 	xpts = np.delete(xpts, [0, len(xpts)-1])
 	ypts = np.delete(ypts, [0, len(ypts)-1])
 	
-	print('Slicing image')
+	print('>>> Slicing image')
 	## slice image and include buffer 
 	slices = []; buffers = []
 	### the slicing is done in row-order
@@ -60,7 +60,7 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 	buff_index = np.array([np.where(new_slice_num == i)[0][0] for i in slice_num])
 	new_slice_index =  [np.where(buff_index == i)[0][0] for i in new_slice_num-1]
 
-	print('Creating kernel grid')
+	print('>>> Creating kernel grid')
 	# reshape and flip slice array
 	slices = np.array(slices, dtype = object).reshape((grid[1]*2)-2, (grid[0]*2)-2)
 	slices = np.flip(slices.T, axis = 0).flatten()
@@ -104,7 +104,7 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 	ker_indices = np.flip(dup_arr, axis = 0).flatten()
 	ker_grid = np.array(kernels)[ker_indices]
 
-	print('Convolving image slices with kernel grid')
+	print('>>> Convolving image slices with kernel grid')
 	convol_grid = []
 	for chunk, kernel, num in zip(slices, ker_grid, np.arange(len(slices))+1):
 		if conv_type == 'convolve2d':
@@ -115,7 +115,7 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 		print('Convolving slice #'+str(num))
 
 
-	print('Stitching image back together')
+	print('>>> Stitching image back together')
 	new_slices = []
 
 	for chunk, buffs in zip(convol_grid, np.array(buffers)):
@@ -148,6 +148,6 @@ def convolve_image(params, img, img_filepath, buffer_size, kernels, xpoints, ypo
 	if params['SAVE_IMAGE'] == True:
 		hdu = fits.PrimaryHDU(convol_img)
 		hdu.header = fits.open(img_filepath)[0].header
-		hdu.writeto(file_basename+'_psfmatched.fits')
+		hdu.writeto(outdir+file_basename+'_psfmatched.fits')
 
 	return convol_img

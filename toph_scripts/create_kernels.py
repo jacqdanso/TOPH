@@ -8,7 +8,7 @@ def create_kernels(img_psfs, ref_psfs, regfact):
 
 	shifted_kernels = [shift(ker, [-1, -1], mode = 'constant') for ker in kernels] 
 
-	return shifted_kernels 
+	return kernels, shifted_kernels
 
 
 
