@@ -5,7 +5,7 @@ from diagnostics import *
 from create_kernels import create_kernels
 from convolve_image import convolve_image
 from scipy.io import readsav
-from photometry.psfutils import fit_moffat, peak2d, bgsub
+from astropy.io.ascii import read 
  
 params = toph_params()
 
@@ -37,7 +37,7 @@ if params['CHECK_KERNELS']:
 
 if params['CHECK_CONVOLVED_PSFS']:
 	check_convolved_psfs(ref_psfs = ref_psfs, stars=star_cat, pixscale = params['PIXEL_SCALE'])
-	
+
 if params['SHOW_CONVOLVED_IMAGE']:
 	convol_img = fits.open(file_basename+'_psfmatched.fits')[0].data
 	check_convolved_image(convol_img)

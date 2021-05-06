@@ -6,9 +6,11 @@ from toph_scripts.create_kernels import create_kernels
 from toph_scripts.convolve_image import convolve_image, get_grid
 from scipy.io import readsav
 from toph_scripts.include_buffer import include_buffer
+from astropy.convolution import convolve_fft
+
+params = toph_params()
 
 def test_params(test_ker=False):
-	params = toph_params()
 	regfact = params['REGFACT']
 	psf_points = readsav(params['SAV_FILE'])
 	xpoints = psf_points['spx'].flatten()
@@ -141,7 +143,7 @@ def test_kernel_grid():
 
 	return kernels, ker_grid, slices, dup_arr
 
-def test_convolution():
+def test_convolution(conv_type = 'fft'):
 	kernels, ker_grid, slices, dup_arr = test_kernel_grid()
 	print('Convolving image slices with kernel grid')
 	convol_grid = []
@@ -159,6 +161,7 @@ def test_stitching():
 	slice_num, grid, slices, buffers = test_slicing()
 	buff_index, new_slice_index = test_reordering()
 	kernels, ker_grid, slices, dup_arr = test_kernel_grid()
+	convol_grid = test_convolution()
 
 	print('Stitching image back together')
 	new_slices = []

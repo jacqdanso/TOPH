@@ -5,20 +5,14 @@ import sys
 
 params = {}
 
-filepath = 'tests/input/'
+filepath = '/Users/jadanso/Desktop/TOPH/tests/input/'
 def toph_params():
-	#params['IMG_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_sci.fits'
-	#params['IMG_PSFGRID'] = filepath+'COSMOS_352_Kb_psfgrid_v0.8.fits'
-	#params['STARS_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_stars_green2.txt'
-	#params['REFERENCE_FILEPATH'] = filepath+'COSMOS_352_Ks_cutout.fits'
-	#params['REFERENCE_PSFGRID'] = filepath+'COSMOS_352_Ks_psfgrid_v0.8.fits'
-	#params['SAV_FILE'] = filepath+'COSMOS_352_Kb_0.80pp_sci.sav'
-	params['IMG_FILEPATH'] = filepath+'COSMOS_544_Kb_0.80pp_sci.fits'
-	params['IMG_PSFGRID'] = filepath+'COSMOS_544_Kb_0.80pp_0.1psfgrid.fits'
-	params['STARS_FILEPATH'] = filepath+'COSMOS_352_Kb_0.80pp_stars_green2.txt'
-	params['REFERENCE_FILEPATH'] = filepath+'COSMOS_544_Ks_cutout.fits'
-	params['REFERENCE_PSFGRID'] = filepath+'COSMOS_544_Ks_0.80pp_0.1psfgrid.fits'
-	params['SAV_FILE'] = filepath+'COSMOS_544_Kb_0.80pp_sci.sav'
+	params['IMG_FILEPATH'] = filepath+'COSMOS_55_Kb_4_mp_avg_bgsub.fits'
+	params['IMG_PSFGRID'] = filepath+'COSMOS_55_Kb_4_mp_avg_bgsub_psfgrid.fits'
+	params['STARS_FILEPATH'] = filepath+'COSMOS_55_Ks_cutout_stars.cat'
+	params['REFERENCE_FILEPATH'] = filepath+'COSMOS_55_Ks_cutout.fits'
+	params['REFERENCE_PSFGRID'] = filepath+'COSMOS_55_Ks_cutout_psfgrid.fits'
+	params['SAV_FILE'] = filepath+'COSMOS_55_Kb_4_mp_avg_bgsub.sav'
 	params['PIXEL_SCALE'] = 0.15
 	params['CHECK_OFFSET_BEFORE'] = False 
 	params['CHECK_OFFSET_AFTER'] = False 
