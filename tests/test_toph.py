@@ -143,10 +143,10 @@ def test_kernel_grid():
 	ker_indices = np.flip(dup_arr, axis = 0).flatten()
 	ker_grid = np.array(kernels)[ker_indices]
 
-	return kernels, ker_grid, slices, dup_arr
+	return kernels, ker_grid, slices, dup_arr, buffers
 
 def test_convolution(conv_type = 'fft'):
-	kernels, ker_grid, slices, dup_arr = test_kernel_grid()
+	kernels, ker_grid, slices, dup_arr, buffers = test_kernel_grid()
 	print('Convolving image slices with kernel grid')
 	convol_grid = []
 	for chunk, kernel, num in zip(slices, ker_grid, np.arange(len(slices))+1):
@@ -162,7 +162,7 @@ def test_convolution(conv_type = 'fft'):
 def test_stitching():
 	slice_num, grid, slices, buffers = test_slicing()
 	buff_index, new_slice_index = test_reordering()
-	kernels, ker_grid, slices, dup_arr = test_kernel_grid()
+	kernels, ker_grid, slices, dup_arr, buffers = test_kernel_grid()
 	convol_grid = test_convolution()
 
 	print('Stitching image back together')
@@ -193,8 +193,4 @@ def test_stitching():
 
 	#put columns together 
 	convol_img = np.concatenate(img_rows, axis=1)
-
-	#return convol_img
-
-#convol_img = test_stitching()
 	
