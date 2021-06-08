@@ -1,4 +1,4 @@
-# TOPH 
+# TOPH [![BCH compliance](https://bettercodehub.com/edge/badge/jacqdanso/TOPH?branch=main&token=c71d7fd00b87246bc0dd9ce8469379d245b7096d)](https://bettercodehub.com/)
 
 TOPH (TOols for PSF Homogenization, in keeping with the tradition of terrible astronomy acronyms) performs spatially-variable point spread function matching. The main routines are:
 
