@@ -1,6 +1,5 @@
 import numpy as np 
-#from toph_scripts.include_buffer import include_buffer
-from include_buffer import include_buffer
+from toph_scripts.include_buffer import include_buffer
 from scipy.signal import convolve2d
 from astropy.io import fits
 import matplotlib.pyplot as plt 
