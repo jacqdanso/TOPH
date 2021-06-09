@@ -30,11 +30,11 @@ def test_params(test_ker=False):
     else: 
         return params, img, img_filepath, xpoints, ypoints 
 
-def test_kernels():
+def test_kernels(params):
     test_ker = True
     img_psfs, ref_psfs, regfact = test_params(test_ker)
     kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, file_basename = None, \
-        params = None, save_kernels = False)
+        params = params, save_kernels = False)
     buffer_size = np.shape(shifted_kernels[0])[0]
 
     return buffer_size, shifted_kernels
