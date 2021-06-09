@@ -30,7 +30,7 @@ def test_params(test_ker=False):
     else: 
         return params, img, img_filepath, xpoints, ypoints 
 
-def test_kernels(params):
+def test_kernels():
     test_ker = True
     img_psfs, ref_psfs, regfact = test_params(test_ker)
     kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, file_basename = None, \
