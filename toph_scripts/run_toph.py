@@ -21,27 +21,45 @@ ref_psfs = fits.open(params['REFERENCE_PSFGRID'])[0].data
 
 star_cat = read(params['STARS_FILEPATH'])
 
-# run TOPH -- main routines
+if not params['DIAGNOSTICS_ONLY']:
 
-kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, regfact=params['REGFACT'])
-buffer_size = np.shape(kernels[0])[0]
+    # run TOPH -- main routines
 
-convol_img = convolve_image(params, img, params['IMG_FILEPATH'], buffer_size, kernels, xpoints, ypoints, \
-	params['CONVOLUTION_TYPE'], file_basename, params['OUTDIR'])
+    kernels, shifted_kernels = create_kernels(img_psfs=img_psfs, ref_psfs=ref_psfs, file_basename=file_basename, \
+                                                params=params)
+    # set size of padding for image slices
+    buffer_size = np.shape(kernels[0])[0]
+
+    convol_img = convolve_image(params, img, buffer_size, shifted_kernels, xpoints, ypoints, file_basename)
+ 
+else:
+    kernels = fits.open(params['OUTDIR']+file_basename+'_kernels.fits')[0].data
+    shifted_kernels = fits.open(params['OUTDIR']+file_basename+'_kernels.fits')[0].data
+    # set size of padding for image slices
+    buffer_size = np.shape(kernels[0])[0]
+
 
 # make diagnostic plots 
-
 if params['CHECK_KERNELS']: 
-	check_kernels(kernels=kernels, img_psfs=img_psfs, ref_psfs=ref_psfs, \
-		file_basename = file_basename, outdir = params['OUTDIR'])
+    check_kernels(kernels=kernels, img_psfs=img_psfs, ref_psfs=ref_psfs, \
+        file_basename = file_basename, params = params)
 
 if params['CHECK_CONVOLVED_PSFS']:
-	check_convolved_psfs(kernels = kernels, img_psfs = img_psfs, ref_psfs = ref_psfs, stars=star_cat, \
-		pixscale = params['PIXEL_SCALE'], file_basename = file_basename, outdir = params['OUTDIR'])
+    check_convolved_psfs(kernels = shifted_kernels, img_psfs = img_psfs, ref_psfs = ref_psfs, stars=star_cat, \
+        file_basename = file_basename, params = params)
 
 if params['SHOW_CONVOLVED_IMAGE']:
-	convol_img = fits.open(params['OUTDIR']+file_basename+'_psfmatched.fits')[0].data
-	check_convolved_image(convol_img=convol_img, file_basename = file_basename, outdir = params['OUTDIR'])
+    convol_img = fits.open(params['OUTDIR']+file_basename+'_psfmatched.fits')[0].data
+    check_convolved_image(convol_img=convol_img, file_basename = file_basename, outdir = params['OUTDIR'])
+
+if params['SHOW_GRID']:
+    show_image_grid(img, xpoints, ypoints, params, file_basename, buffer_size)
+
+if params['SHOW_STAR_STAMPS']:
+    convol_img = fits.open(params['CONVOL_IMG_FILEPATH'])[0].data
+    ref_img = fits.open(params['REFERENCE_FILEPATH'])[0].data
+    show_star_stamps(convol_img, ref_img, star_cat, file_basename, params, verbose=False)
+
 
 
 

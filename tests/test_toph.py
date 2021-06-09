@@ -45,10 +45,6 @@ def test_slicing():
 	# note kernels is being overwritten here
 	buffer_size, kernels = test_kernels()
 
-	conv_type = params['CONVOLUTION_TYPE']
-	params['SAVE_IMAGE'] = False
-	params['CONVOLUTION_TYPE'] = 'fft'
-
 	grid = get_grid(xpoints, ypoints)
 
 	x = np.linspace(0, max(xpoints), num = (grid[1]*2)-1, dtype = int)

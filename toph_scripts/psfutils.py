@@ -36,7 +36,7 @@ def detect_objects(image):
     
     return segm
 
-def bgsub(img, idx, rin, rout, display = False):
+def bgsub(img, idx, rin, rout, display = False, verbose = True):
     center = int(np.shape(img)[0]/2)
     imin = center - rout
     imax = center + rout 
@@ -93,7 +93,10 @@ def bgsub(img, idx, rin, rout, display = False):
         ax[2].axvline(max_num, ls='dashed', c='green')
         ax[2].set_xlabel('Sky Value (counts)')
         ax[2].set_ylabel('Number of pixels')
-        
-    print('Sky Value:', sky, ' counts (normalized)')
+    
+    if verbose:   
+    	print('Sky Value:', sky, ' counts (normalized)')
+
     bg_sub_img = img - sky
+
     return [bg_sub_img, sky]
