@@ -21,24 +21,27 @@ def toph_params():
 	# Diagnostic plots 
 	params['CHECK_OFFSET_BEFORE'] = False 
 	params['CHECK_OFFSET_AFTER'] = False 
-	params['CHECK_KERNELS'] = False
-	params['CHECK_CONVOLVED_PSFS'] = False
+	params['CHECK_KERNELS'] = True
+	params['CHECK_CONVOLVED_PSFS'] = True
 	params['SHOW_GRID'] = False 
 	params['SHOW_CONVOLVED_IMAGE'] = False 
-	params['SHOW_STAR_STAMPS'] = False
+	params['SHOW_STAR_STAMPS'] = True
 	params['SAVE_IMAGE'] = True
 
-	params['PIXEL_SCALE'] = 0.15
+	# Kernels 
 	params['KERNEL_METHOD'] = 'FFD'
 	params['REGFACT'] = 1e-2
 	params['USE_MODEL_REFERENCE'] = False 
-	 
+	
+	# Growth curves and background subtraction
+	params['PIXEL_SCALE'] = 0.15
 	params['APERTURE_SIZE'] = 28*params['PIXEL_SCALE']
 	params['INNER_ANNULUS'] = 32*params['PIXEL_SCALE']
 	params['OUTER_ANNULUS'] = 51*params['PIXEL_SCALE']
 	params['CATALOG_APERTURE'] = 0.6 #in arcseconds
 	
 	params['CONVOLUTION_TYPE'] = 'convolve2d'
+	#params['CONVOLUTION_TYPE'] = 'fft'
 	params['OUTDIR'] = 'output/'
 
 	# If running diagnostics only
