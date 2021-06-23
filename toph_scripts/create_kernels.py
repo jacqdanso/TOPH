@@ -5,11 +5,11 @@ from photutils import SplitCosineBellWindow
 
 def create_kernels(img_psfs, ref_psfs, file_basename, params, save_kernels = True):
     print('Creating kernels')
-    if params['KERNEL_METHOD'] = 'matrix_reg':
+    if params['KERNEL_METHOD'] == 'matrix_reg':
         kernels = [pypher.homogenization_kernel(reference_psf, img_psf, reg_fact=params['REGFACT'])[0] \
               for  reference_psf, img_psf  in  zip(ref_psfs, img_psfs)]
 
-    elif params['KERNEL_METHOD'] = 'ffd':
+    elif params['KERNEL_METHOD'] == 'ffd':
         window = SplitCosineBellWindow(alpha=params['ALPHA'],beta=params['BETA'])
         kernels = [create_matching_kernel(img_psf, ref_psf, window=window) for img_psf, ref_psf in \
                     zip(img_psfs, ref_psfs)]
