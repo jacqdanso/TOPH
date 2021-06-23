@@ -1,10 +1,10 @@
 from pypher import pypher 
 from scipy.ndimage import shift
 from astropy.io import fits 
-from photutils import SplitCosineBellWindow
+from photutils import SplitCosineBellWindow, create_matching_kernel
 
 def create_kernels(img_psfs, ref_psfs, file_basename, params, save_kernels = True):
-    print('Creating kernels')
+    print('>>> Creating kernels')
     if params['KERNEL_METHOD'] == 'matrix_reg':
         kernels = [pypher.homogenization_kernel(reference_psf, img_psf, reg_fact=params['REGFACT'])[0] \
               for  reference_psf, img_psf  in  zip(ref_psfs, img_psfs)]
