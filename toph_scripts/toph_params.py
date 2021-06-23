@@ -29,7 +29,9 @@ def toph_params():
 	params['SAVE_IMAGE'] = True
 
 	# Kernels 
-	params['KERNEL_METHOD'] = 'FFD'
+	params['KERNEL_METHOD'] = 'matrix_reg' # alternative: 'ffd'
+	params['ALPHA'] = 0.4 # alpha parameter of split cosine bell window
+	params['BETA'] = 0.3 # beta parameter of split cosine bell window
 	params['REGFACT'] = 1e-2
 	params['USE_MODEL_REFERENCE'] = False 
 	
@@ -40,8 +42,7 @@ def toph_params():
 	params['OUTER_ANNULUS'] = 51*params['PIXEL_SCALE']
 	params['CATALOG_APERTURE'] = 0.6 #in arcseconds
 	
-	params['CONVOLUTION_TYPE'] = 'convolve2d'
-	#params['CONVOLUTION_TYPE'] = 'fft'
+	params['CONVOLUTION_TYPE'] = 'convolve2d' # alternative : 'fft'
 	params['OUTDIR'] = 'output/'
 
 	# If running diagnostics only
