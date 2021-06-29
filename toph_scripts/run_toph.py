@@ -34,7 +34,7 @@ if not params['DIAGNOSTICS_ONLY']:
  
 else:
     kernels = fits.open(params['OUTDIR']+file_basename+'_kernels.fits')[0].data
-    shifted_kernels = fits.open(params['OUTDIR']+file_basename+'shifted_kernels.fits')[0].data
+    shifted_kernels = fits.open(params['OUTDIR']+file_basename+'_shifted_kernels.fits')[0].data
     # set size of padding for image slices
     buffer_size = np.shape(kernels[0])[0]
 
