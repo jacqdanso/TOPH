@@ -22,14 +22,14 @@ def toph_params():
 	params['CHECK_OFFSET_BEFORE'] = False 
 	params['CHECK_OFFSET_AFTER'] = False 
 	params['CHECK_KERNELS'] = True
-	params['CHECK_CONVOLVED_PSFS'] = True
+	params['CHECK_CONVOLVED_PSFS'] = False
 	params['SHOW_GRID'] = False 
 	params['SHOW_CONVOLVED_IMAGE'] = False 
-	params['SHOW_STAR_STAMPS'] = True
+	params['SHOW_STAR_STAMPS'] = False
 	params['SAVE_IMAGE'] = True
 
 	# Kernels 
-	params['KERNEL_METHOD'] = 'matrix_reg' # alternative: 'ffd'
+	params['KERNEL_METHOD'] = 'ffd' # options: 'ffd, matrix_reg'
 	params['ALPHA'] = 0.4 # alpha parameter of split cosine bell window
 	params['BETA'] = 0.3 # beta parameter of split cosine bell window
 	params['REGFACT'] = 1e-2
@@ -42,7 +42,7 @@ def toph_params():
 	params['OUTER_ANNULUS'] = 51*params['PIXEL_SCALE']
 	params['CATALOG_APERTURE'] = 0.6 #in arcseconds
 	
-	params['CONVOLUTION_TYPE'] = 'convolve2d' # alternative : 'fft'
+	params['CONVOLUTION_TYPE'] = 'fft' # options : 'fft, convolve_2d'
 	params['OUTDIR'] = 'output/'
 
 	# If running diagnostics only

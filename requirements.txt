@@ -1,4 +1,4 @@
-photutils==0.7
+photutils==1.0.2
 pypher==0.6.4
 pidly==0.2.6
 pytest==6.2.4

@@ -23,7 +23,7 @@ def save_toph_figure(filename):
 
 def convolve_psfs(kernels, img_psfs, params):
     if params['CONVOLUTION_TYPE'] == 'convolve2d':
-        convol_img_psfs = [convolve2d(chunk, kernel, boundary='fill') \
+        convol_img_psfs = [convolve2d(chunk, kernel, boundary='fill', mode = 'same') \
                   for chunk, kernel in zip(img_psfs, kernels)]
     elif params['CONVOLUTION_TYPE'] == 'fft':
         convol_img_psfs = [convolve_fft(chunk, kernel, boundary='fill') \
