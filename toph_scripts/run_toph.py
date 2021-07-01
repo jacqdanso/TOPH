@@ -41,7 +41,7 @@ else:
 
 # make diagnostic plots 
 if params['CHECK_KERNELS']: 
-    check_kernels(kernels=kernels, img_psfs=img_psfs, ref_psfs=ref_psfs, \
+    check_kernels(kernels=shifted_kernels, img_psfs=img_psfs, ref_psfs=ref_psfs, \
         file_basename = file_basename, params = params)
 
 if params['CHECK_CONVOLVED_PSFS']:
