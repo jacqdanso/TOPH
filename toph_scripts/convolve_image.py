@@ -138,7 +138,8 @@ def convolve_image(params, img, buffer_size, kernels, xpoints, ypoints, file_bas
         new_slices.append(chunk[newy1:newy2, newx1:newx2])
 
     # flip and transpose slice array
-    new_slices = np.array(new_slices, dtype = object)[new_slice_index]
+    #new_slices = np.array(new_slices, dtype = object)[new_slice_index]
+    new_slices = np.array(new_slices, dtype = 'float64')[new_slice_index] #dtype='object' was changed to dtype='float64'
 
     ### plus 1 because np.arange does not include stop value
     row_indices = np.arange(0, (np.shape(dup_arr)[0]*np.shape(dup_arr)[1])+1, step = np.shape(dup_arr)[0]) 
